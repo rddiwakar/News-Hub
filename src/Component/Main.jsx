@@ -1,4 +1,5 @@
 import React,{useState,useEffect} from "react";
+import { getStoryIds } from "../services";
 
 import StoryCard from "./StoryCard";
 
@@ -13,7 +14,7 @@ function Main(){
     useEffect(()=>{
          let fetchData = async() => {
             try{
-                let response = await fetch(`https://hacker-news.firebaseio.com/v0/${storyData}stories.json`)
+                let response = await getStoryIds(storyData)
                 let result = await response.json();
 
                 // throw new Error("something went wrong");
