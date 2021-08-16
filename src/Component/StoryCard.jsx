@@ -2,12 +2,14 @@ import React,{useEffect,useState} from "react"
 
 function StoryCard({ storyId }) {
     const [story, setStory] = useState({});
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(()=>{
         let fetchData = async () =>{
             let response = await fetch(`https://hacker-news.firebaseio.com/v0/item/${storyId}.json?print=pretty`);
             let result = await response.json();
             setStory(result)
+            setIsLoading(false)
         }
         fetchData()
     }, [storyId]);
@@ -37,12 +39,16 @@ function StoryCard({ storyId }) {
         
     }
     return (
-        <div className="storyCard">
-            <a href={story.url}>
-                <h4>{story.title}</h4>
-                <p>{story.text ? story.text : "No data found"}</p>
-                <p>{time()} ago | type : {story.type} | written by {story.by}</p>
-            </a>
+        <div className={`storyCard ${isLoading ? "skeleton-loader": ""}`}>
+            {
+                !isLoading && (
+                    <a href={story.url}>
+                        <h4>{story.title}</h4>
+                        <p>{story.text ? story.text : "No data found"}</p>
+                        <p>{time()} ago | type : {story.type} | written by {story.by}</p>
+                    </a>
+                )
+            }
         </div>
     )
 }

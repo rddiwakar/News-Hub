@@ -42,7 +42,7 @@ a{
 }
 .skeleton-loader {
   width: 100%;
-  height: 480px;
+  height: 100px;
   display: block;
   background: linear-gradient(	  
       to right,
